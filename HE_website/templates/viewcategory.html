@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block page-content %}
+
+<div class="content-wrapper" style="min-height: 2171.6px;">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>CATEGORIES</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item">category</li>
+            <li class="breadcrumb-item active">view</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <div class="card">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">View Category</h3>
+              </div>
+            </div>
+              <div class="card-body">
+
+                  <div class="text-center">
+                    <img src="/static{{category.category_image.url}}" class="rounded img-fluid" style="width: 600px; height:400px;" />
+                  </div>
+                  <div class="text-center">
+                    <label>{{category.category}}</label>
+                  </div>
+                    <div class="col-sm-8">
+                      <p>{{category.description | safe}}</p>
+                    </div>
+                    
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'he_admin:showcategories' %}"  class="btn btn-info">Back</a> 
+              </div>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock page-content %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Products{% endblock title %}
+
+{% block page-content %}
+
+<div class="content-wrapper" style="min-height: 2171.6px;">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>ADD PRODUCTS</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">Add products</li>
+					</ol>
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</section>
+
+	<section class="content ">
+		<div class="container-fluid">
+
+			<div class="col-md-8 offset-2 ">
+				<!-- general form elements -->
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">ADD PRODUCTS</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start {% for forms in form  %}{{forms.type}}{% endfor %} -->
+					<form enctype="multipart/form-data" method="post" action="" novalidate>
+						{% csrf_token %}
+						<div class="card-body">
+							<div class="form-group ">
+								<label for="">{{product.category.label_tag }} </label>
+									{{ product.category}}
+							</div>
+							{% if product.errors.category %}
+							<para style="color:red">{{product.errors.category}}</para>
+							{% endif %}
+
+							<div class="form-group">
+								<label for="">{{product.product_name.label_tag}}</label>
+								{{product.product_name}}
+							</div>
+							{% if product.errors.product_name %}
+							<para style="color:red"> {{product.errors.product_name}} </para>
+							{% endif %}
+
+							<div class="form-group">
+								<label for="">Image Alt : </label>
+								<input type="text" class="form-control" id="id_image_alt" name="image_alt"
+									required="required" placeholder="" value={{product.image_alt}}>
+							</div>
+
+							<div class="form-group">
+								<label for="">Product Image : </label>
+								{{product.image}}
+							</div>							
+							{% if product.errors.image %}
+							<para style="color:red"> {{product.errors.image}} </para>
+							{% endif %}
+
+
+							<input type="submit" value="Submit" class="btn btn-outline-success ">
+
+						</div>
+
+					</form>
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock page-content %}

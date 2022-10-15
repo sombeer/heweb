@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}categories{% endblock title %}
+{% block script %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+{% endblock script %}
+{% block page-content %}
+<div class="content-wrapper" style="min-height: 2171.6px;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>CATEGORIES</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">categories</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table id="table_id" class="table table-bordered table-hover dataTable dtr-inline"
+                      aria-describedby="example2_info">
+                      <thead>
+                        <tr>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="Browser: activate to sort column ascending">S.No</th>
+                          <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name
+                          </th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="Platform(s): activate to sort column ascending">Description(s)</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="Engine version: activate to sort column ascending">Image</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="CSS grade: activate to sort column ascending">Operation</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="CSS grade: activate to sort column ascending">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for category in categories%}
+                        <tr class="even">
+                          <td class="dtr-control sorting_1" tabindex="0">{{forloop.counter}}</td>
+                          <td>{{category.category}}</td>
+                          <td>
+                            {{category.description | safe}}
+                          </td>
+                          <td><img src="static{{category.category_image.url}}" height="60px" width="80px"></td>
+                          <td>
+                            <a href="{% url 'he_admin:viewcategory' category.id %}" class="btn btn-outline-info" title="View" ><i class="far fa-eye"></i></a>
+                           
+                            <a href="{% url 'he_admin:editcategory' category.id %}" class="btn btn-outline-success" title="Update"><i class="far fa-edit"></i></a>
+                            <a href="{% url 'he_admin:deletecategory' category.id %}" class="btn btn-outline-danger" title="Permanent Delete"><i
+                                class="fas fa-times"></i></a>
+                          </td>
+                          <td>
+                            {% if category.status %}
+                            <a href="{% url 'he_admin:statuscategory' category.id %}" class="btn btn-outline-success" title="Click For Disabled"><i
+                                class="fas fa-toggle-on" value={{category.status}}></i></a>
+                               {% else %}
+                            <a href="{% url 'he_admin:statuscategory' category.id %}" class="btn btn-outline-danger" title="Click For Enabled"><i
+                                class="fas fa-toggle-off" value={{category.status}}></i></a>
+                                {% endif %}
+                          </td>
+                        </tr>
+                        {%empty%}
+                        <li>Sorry, no category is available</li>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+                <!-- /.row -->
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>  <!-- /.container-fluid -->
+  </section>
+</div>
+
+<!--datatable script-->
+<script>
+$(document).ready( function () {
+  $('#table_id').DataTable();
+} );
+</script>
+<!--end datatable script-->
+
+{% endblock page-content %}
