@@ -134,7 +134,8 @@ def ShowProducts(request):
 
 #view product
 def ViewProduct(request,id):
-    product = get_object_or_404(Products,id)
+    product = get_object_or_404(Products,id=id)
+    print(product)
     return render(request,"viewproduct.html",{'product':product})
 
 #update product
@@ -154,6 +155,7 @@ def EditProduct(request,id):
             return HttpResponseRedirect('/showproducts')  
     return render(request,'update-product.html',{'product':productform})
 
+# permanent delete product
 def DeleteProduct(request,id):
     deleteproduct = Products.objects.get(id=id)
     if len(deleteproduct.image)>0:
@@ -161,7 +163,7 @@ def DeleteProduct(request,id):
     deleteproduct.delete()
     messages.success(request,'Product deleted successfully')
     return redirect('/showproducts')
-
+# enable/disable product
 def StatusProduct(request,id):
     status = Products.objects.get(id=id)
     if status.status:
@@ -171,3 +173,7 @@ def StatusProduct(request,id):
         status.status = True
         status.save()
     return redirect('/showproducts')
+
+# projects
+def projects(request):
+    return render(request,'projects.html')
