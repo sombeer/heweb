@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.core.validators import RegexValidator
 
@@ -32,3 +33,6 @@ class Products(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+class ProductApplication(models.Model):
+    application_name = models.CharField(max_length=200,blank=False,null=False)
+    image = models.ImageField(upload_to="applications",height_field=None,width_field=None, max_length=None)

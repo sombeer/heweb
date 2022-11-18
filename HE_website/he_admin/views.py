@@ -1,12 +1,14 @@
-from ast import Delete
-from django.http import Http404
-from django.shortcuts import render,redirect,HttpResponseRedirect,get_object_or_404
-from .models import ProductCategory,Products
-from django.contrib import messages
-from .forms import AddProductForm 
-
-
 import os
+from ast import Delete
+
+from django.contrib import messages
+from django.http import Http404
+from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
+                              redirect, render)
+
+from .forms import AddProductForm, ProductApplicationForm
+from .models import ProductApplication, ProductCategory, Products
+
 # Create your views here.
 
 def index(request):
@@ -176,4 +178,13 @@ def StatusProduct(request,id):
 
 # projects
 def projects(request):
-    return render(request,'projects.html')
+    if request.method == "POST":
+        form = ProductApplicationForm(request.POST,request.FILES)
+        if form.is_valid():
+            Form = form.save(commit=False)
+            Form.save()
+            messages.success(request,'Product application has been added')
+            return HttpResponseRedirect('/project')
+    else:
+        form = ProductApplicationForm()   
+    return render(request,'projects.html',{'form':form})

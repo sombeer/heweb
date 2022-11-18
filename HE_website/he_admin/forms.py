@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-from email.mime import image
-from tkinter import Widget
-from unicodedata import category
+from pyexpat import model
 from django import forms
-from .models import Products
+from .models import Products,ProductApplication
 
 
 class AddProductForm(forms.ModelForm):
@@ -20,4 +17,8 @@ class AddProductForm(forms.ModelForm):
                                 'product_name':forms.TextInput(attrs={'class':'form-control'}),
                                 
                              }     
-       
+
+class ProductApplicationForm(forms.ModelForm):
+    class Meta:
+        model = ProductApplication
+        fields= ['application_name','image']

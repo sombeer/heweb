@@ -25,7 +25,7 @@ urlpatterns = [
     path('status-product/<int:id>/',views.StatusProduct,name='statusproduct'),
 
     #projects path
-    path('projects',views.projects,name='projects')
+    path('addapplications',views.projects,name='project')
     
 ]
 #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
